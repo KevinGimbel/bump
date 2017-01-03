@@ -31,11 +31,19 @@ usage() {
 
   echo "
     -u,--usage  & Show usage message
-    -h,--help   & Show help 
+    -h,--help   & Show help
     -v,--version & Show version and author info
     -g, --git & add all changes to git and create commit message
   " | column -s\& -t
-  
+
+  echo ""
+  echo "Environment variables:"
+  echo "
+    _bump_default_git & \"$_bump_default_git\"
+  " | column -s\& -t
+
+  echo ""
+  echo "Report Issues on $github_issues"
   exit
 }
 
@@ -57,18 +65,18 @@ write_bump() {
     echo "Creating bump.txt file"
     touch "./bump.txt"
   fi
-  
-  bump_message="[$(date +%x)] $1" 
+
+  bump_message="[$(date +%x)] $1"
 
   echo "$bump_message" >> ./bump.txt && echo "Bump text written to bump.txt"
   if [ ! -z "$do_commit" ]; then
-    git add . && git commit -m "$_bump_default_git $1" 
+    git add . && git commit -m "$_bump_default_git $1"
   fi
   exit
 }
 
 
-case "$1" in 
+case "$1" in
   '-u' | '--usage')
     usage
   ;;
