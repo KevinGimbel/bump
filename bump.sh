@@ -6,6 +6,8 @@ author_url="<http://kevingimbel.com>"
 github_url="https://github.com/kevingimbel/bump"
 github_issues="$github_url/issues"
 program_name="$(basename "$0")"
+do_commit=""
+
 # Print out version information
 version() {
   printf "%s\n" "Version $version" \
@@ -27,6 +29,7 @@ usage() {
     -u,--usage  & Show usage message
     -h,--help   & Show help 
     -v,--version & Show version and author info
+    -g, --git & add all changes to git and create commit message
   " | column -s\& -t
   
   exit
@@ -50,8 +53,13 @@ write_bump() {
     echo "Creating bump.txt file"
     touch "./bump.txt"
   fi
+  
+  bump_message="[$(date +%x)] $1" 
 
-  echo "[$(date +%x)] $1" >> ./bump.txt && echo "Bump text written to bump.txt"
+  echo "$bump_message" >> ./bump.txt && echo "Bump text written to bump.txt"
+  if [ ! -z "$do_commit" ]; then
+    git add . && git commit -m "$bump_message"
+  fi
   exit
 }
 
@@ -67,6 +75,10 @@ case "$1" in
 
   '-v' | '--version')
     version
+  ;;
+
+  '-g' | '--git')
+    do_commit="true"
   ;;
 esac
 
