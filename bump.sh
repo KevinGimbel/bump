@@ -58,7 +58,7 @@ write_bump() {
 
   echo "$bump_message" >> ./bump.txt && echo "Bump text written to bump.txt"
   if [ ! -z "$do_commit" ]; then
-    git add . && git commit -m "$bump_message"
+    git add . && git commit -m "$bump_message" 
   fi
   exit
 }
@@ -81,5 +81,6 @@ case "$1" in
     do_commit="true"
   ;;
 esac
+shift
 
 write_bump "$1"
