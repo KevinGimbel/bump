@@ -2,3 +2,4 @@
 [01/03/2017] Fix -g flag
 [01/03/2017] Test -g flag
 [01/03/2017] Testing env variables (inline)
+[01/03/2017] more testing
