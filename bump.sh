@@ -8,6 +8,10 @@ github_issues="$github_url/issues"
 program_name="$(basename "$0")"
 do_commit=""
 
+if [ -z "$_bump_default_git" ]; then
+  _bump_default_git="[BUMP]"
+fi
+
 # Print out version information
 version() {
   printf "%s\n" "Version $version" \
@@ -58,7 +62,7 @@ write_bump() {
 
   echo "$bump_message" >> ./bump.txt && echo "Bump text written to bump.txt"
   if [ ! -z "$do_commit" ]; then
-    git add . && git commit -m "$bump_message" 
+    git add . && git commit -m "$_bump_default_git $1" 
   fi
   exit
 }
