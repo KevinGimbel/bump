@@ -72,9 +72,12 @@ write_bump() {
   if [ ! -z "$do_commit" ]; then
     git add . && git commit -m "$_bump_default_git $1"
   fi
-  exit
+  exit $?
 }
 
+# We assume message the last argument is the message.
+# If it is not, it will be set below.
+msg=${@:$#}
 
 case "$1" in
   '-u' | '--usage')
@@ -92,7 +95,11 @@ case "$1" in
   '-g' | '--git')
     do_commit="true"
   ;;
+  
+  '-m' | '--msg')
+    msg=$2
+  ;;
 esac
 shift
 
-write_bump "$1"
+write_bump "$msg"
