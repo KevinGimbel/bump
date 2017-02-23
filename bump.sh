@@ -75,9 +75,9 @@ write_bump() {
   exit $?
 }
 
-# We assume message is the first parameter.
+# We assume message the last argument is the message.
 # If it is not, it will be set below.
-msg=$1
+msg=${@:$#}
 
 case "$1" in
   '-u' | '--usage')
