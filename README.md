@@ -46,6 +46,15 @@ The above command will create (or write to)  a `bump.txt` file in the current
 directory with your bump message and the date in the format [MM/DD/YYYY]. That's
 it.
 
+**Note** The last parameter is always assumed to be the message unless you
+specifiy it with `-m`. If you write
+
+```sh
+$ bump "a message" -g
+```
+
+the message will be `-g`.
+
 ### Advanced
 
 You can set an environmental variable named `_bump_default_git` which is written in front of your git commit message when using the `-g` flag. Choose the way to set the variable that best suites your needs.
